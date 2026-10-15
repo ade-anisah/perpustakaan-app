@@ -2,20 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class BookFactory extends Factory
+class CategoryFactory extends Factory
 {
     public function definition(): array
     {
+        $name = fake()->unique()->word();
+
         return [
-            'title' => fake()->sentence(3),
-            'isbn' => fake()->unique()->isbn13(),
-            'published_year' => fake()->year(),
-            'price' => fake()->randomFloat(2, 50000, 500000),
-            'stock' => fake()->numberBetween(1, 100),
-            'author_id' => Author::factory(),
+            'name' => ucfirst($name),
+            'slug' => Str::slug($name),
         ];
     }
 }
